@@ -21,11 +21,11 @@ const StrategyCard = ({
       {...(addButton
         ? {
             className:
-              "h-[21rem] w-[21rem] rounded-none bg-gray-900/50 border border-gray-800 flex justify-center items-center hover:bg-gray-900/20",
+              "h-[21rem] w-[21rem] rounded-none cursor-pointer bg-gray-900/50 border border-gray-800 flex justify-center items-center hover:bg-gray-900/20",
           }
         : {
             className:
-              "h-[21rem] w-[21rem] rounded-none bg-gray-900 border border-gray-800 flex justify-center items-center hover:bg-gray-900/65",
+              "h-[21rem] w-[21rem] rounded-none cursor-pointer bg-gray-900 border border-gray-800 flex justify-center items-center hover:bg-gray-900/65",
           })}
       placeholder={undefined}
       onPointerEnterCapture={undefined}
