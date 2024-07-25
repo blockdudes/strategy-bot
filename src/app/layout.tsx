@@ -19,19 +19,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ThirdwebProvider>
-      <body className={inter.className}>
-      <div className="absolute top-3 right-6">
-      <div className="flex justify-center mb-20">
-          <ConnectButton
-            client={client}
-            appMetadata={{
-              name: "Example App",
-              url: "https://example.com",
-            }}
-          />
-        </div>
-      </div>
-      {children}</body>
+        <body className={inter.className}>
+          <div className="absolute top-3 right-3">
+            <div className="flex justify-center mb-20">
+              <ConnectButton
+                client={client}
+                appMetadata={{
+                  name: "Example App",
+                  url: "https://example.com",
+                }}
+              />
+            </div>
+          </div>
+          {children}
+        </body>
       </ThirdwebProvider>
     </html>
   );
