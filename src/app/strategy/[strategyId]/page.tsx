@@ -1,11 +1,11 @@
 import React from 'react'
 
-const StrategyDetails = (params: { strategyId: string }) => {
+const StrategyDetailsPage = () => {
   return (
     <div>
-      Strategy Details {params.strategyId}
+        Strategy Details
     </div>
   )
 }
 
-export default StrategyDetails
+export default StrategyDetailsPage;

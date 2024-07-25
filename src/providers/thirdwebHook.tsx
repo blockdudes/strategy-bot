@@ -15,45 +15,42 @@ import {
   useSendTransaction,
   useActiveWalletChain,
 } from "thirdweb/react";
-import { client } from '@/lib/client'
+import { client } from "@/lib/client";
 
 interface ContractContextState {
   contractInstance: ThirdwebContract | undefined;
 }
 
-
 const ContractContext = createContext<ContractContextState | undefined>(
   undefined
 );
 
-
-
 export const ContractProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-
-  const [contractInstance, setContractInstance] = useState<ThirdwebContract | undefined>();
+  const [contractInstance, setContractInstance] = useState<
+    ThirdwebContract | undefined
+  >();
   const activeChain = useActiveWalletChain();
   const activeAccount = useActiveAccount();
 
   useEffect(() => {
-
     const initContract = async () => {
-    try {
+      try {
         if (activeChain?.name === "Arbitrum Sepolia") {
-            const contract = getContract({
-                address: "",
-                abi: [] as [],
-                client: client,
-                chain: arbitrumSepolia,
-            });
+          const contract = getContract({
+            address: "",
+            abi: [] as [],
+            client: client,
+            chain: arbitrumSepolia,
+          });
 
-            setContractInstance(contract);
+          setContractInstance(contract);
         }
-    } catch (error) {
+      } catch (error) {
         throw new Error(`Error getting contract: ${(error as Error).message}`);
         console.error(error);
-    }
+      }
     };
     initContract();
   }, [activeChain]);
@@ -63,31 +60,34 @@ export const ContractProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const balance = await readContract({
       contract: contractInstance,
-      method: "function getUserBalance(address) view returns ((uint256, uint256))",
+      method:
+        "function getUserBalance(address) view returns ((uint256, uint256))",
       params: [activeAccount?.address?.toString() || ""],
     });
-    console.log(balance)
+    console.log(balance);
     return balance;
   };
 
- 
-
-const fetchData = async () => {
-  try {
-    const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd');
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      const ethPriceInUSD = data.ethereum.usd;
+      const weiPriceInUSD = ethPriceInUSD / 1e18;
+      localStorage.setItem(
+        "price",
+        JSON.stringify({ price: data.ethereum.usd, timestamp: Date.now() })
+      );
+      return { ethereum: { usd: weiPriceInUSD } };
+    } catch (error) {
+      console.log(error);
     }
-    const data = await response.json();
-    const ethPriceInUSD = data.ethereum.usd;
-    const weiPriceInUSD = ethPriceInUSD / 1e18;
-    localStorage.setItem('price', JSON.stringify({ price: data.ethereum.usd, timestamp: Date.now()}))
-    return { ethereum: { usd: weiPriceInUSD } }
-  } catch (error) {
-    console.log(error);
-  }
-};
-  
+  };
 
   const withdraw = async (isEth: boolean, amount: number) => {
     try {
@@ -111,7 +111,7 @@ const fetchData = async () => {
         account: activeAccount,
       });
 
-      await getBalance()
+      await getBalance();
 
       return result;
     } catch (error) {

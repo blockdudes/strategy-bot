@@ -4,6 +4,7 @@ import "./globals.css";
 import { ConnectButton, ThirdwebProvider } from "thirdweb/react";
 import { client } from "@/lib/client";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -18,22 +19,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ThirdwebProvider>
-        <body className={inter.className}>
-          <div className="absolute top-3 right-3">
-            <div className="flex justify-center mb-20">
-              <ConnectButton
-                client={client}
-                appMetadata={{
-                  name: "Example App",
-                  url: "https://example.com",
-                }}
-              />
+      <body className={inter.className}>
+          <ThirdwebProvider>
+            <div className="absolute top-3 right-3">
+              <div className="flex justify-center mb-20">
+                <ConnectButton
+                  client={client}
+                  appMetadata={{
+                    name: "Example App",
+                    url: "https://example.com",
+                  }}
+                />
+              </div>
             </div>
-          </div>
-          {children}
-        </body>
-      </ThirdwebProvider>
+            {children}
+          </ThirdwebProvider>
+      </body>
     </html>
   );
 }

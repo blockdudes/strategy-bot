@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardBody, Button } from "@material-tailwind/react";
+import { Card, CardBody } from "@material-tailwind/react";
 import { PiPlusLight } from "react-icons/pi";
 
 const StrategyCard = ({
