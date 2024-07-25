@@ -1,8 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Card, CardBody, Button } from "@material-tailwind/react";
 import { useRouter } from "next/navigation";
-import { PiPlusLight } from "react-icons/pi";
 import StrategyCard from "@/components/StrategyCard";
 
 export default function Home() {
@@ -13,7 +11,7 @@ export default function Home() {
   const router = useRouter();
 
   const addStrategy = () => {
-    // router.push(`/create/${strategies.length + 1}`);
+    router.push(`/create/${strategies.length + 1}`);
     const newId = strategies.length + 1; // Adjust the ID to be based on current length
     const newStrategy = {
       id: newId,
@@ -27,12 +25,14 @@ export default function Home() {
   const emptySlots = 3 - items.length; // Calculate remaining slots before the Add button
 
   return (
-    <div className="p-6 w-full space-y-6">
+    <div className="px-6 pt-14 w-full space-y-2">
       <div className="flex justify-between items-center">
-        <div className="text-3xl h-44 p-4 rounded-lg shadow-lg">Balance</div>
+        <div className="text-3xl h-44 w-full p-4 bg-gray-900 border border-gray-800">
+          Balance
+        </div>
       </div>
       <div>
-        <div className="text-3xl mb-4">Strategies</div>
+
         <div className="grid grid-cols-4 gap-1">
           {items.map((strategy) => (
             <StrategyCard
