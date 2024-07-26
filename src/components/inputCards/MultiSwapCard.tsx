@@ -85,7 +85,7 @@ const MultiSwapCard = ({
               crossOrigin={undefined}
             />
             <Input
-              type=""
+              type="number"
               size="lg"
               color="teal"
               label="Token Amount"

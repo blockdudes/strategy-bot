@@ -90,7 +90,7 @@ export const NodeSelector = ({
           id: nodeId,
           type: nodes[selectedNodeIndex!].type,
           data: nodes[selectedNodeIndex!].data,
-          position: { x: 0, y: 0 },
+          position: { x: 500, y: 50 },
         },
       ]);
     }

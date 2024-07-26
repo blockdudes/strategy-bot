@@ -21,6 +21,7 @@ const StakeNode = (props: NodeProps) => {
           <div className="flex gap-2">
           </div>
         </div>
+
       </ParentNode>
 
       {isDialogOpen && (

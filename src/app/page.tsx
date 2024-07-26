@@ -4,19 +4,20 @@ import { useRouter } from "next/navigation";
 import StrategyCard from "@/components/StrategyCard";
 
 export default function Home() {
-  const [strategies, setStrategies] = useState<{ id: number; name: string }[]>(
-    []
-  );
+  const [strategies, setStrategies] = useState<
+    { id: number; name: string; description: string }[]
+  >([]);
 
   const router = useRouter();
 
   const addStrategy = () => {
-    router.push(`/create/`);
+    // router.push(`/create/`);
     const newId = strategies.length + 1; // Adjust the ID to be based on current length
     const newStrategy = {
       id: newId,
       name: `Strategy ${newId}`,
-      description: "lorem ipsum doler sit amet lorem ipsum doler sit amet lorem ipsum doler sit amet lorem ipsum doler sit amet ",
+      description:
+        "lorem ipsum doler sit amet lorem ipsum doler sit amet lorem ipsum doler sit amet lorem ipsum doler sit amet ",
     };
     setStrategies([...strategies, newStrategy]);
   };
@@ -26,20 +27,32 @@ export default function Home() {
   const emptySlots = 3 - items.length; // Calculate remaining slots before the Add button
 
   return (
-    <div className="px-6 pt-14 w-full space-y-2">
+    <div className="px-6 pt-14 w-full ">
       <div className="flex justify-between items-center">
-        <div className="text-3xl flex flex-col h-44 w-full p-4 bg-gray-900 border border-gray-800">
-          Balance
-          total invested
+        <div className="text-6xl flex flex-col h-44 w-full space-y-2">
+          <div className=" flex space-x-2 items-baseline">
+            <span className="text-gray-500">Balance</span>
+            <span> </span>
+            <span> </span>
+            <span> </span>
+            <span className="text-4xl">$10000</span>
+          </div>
+          <div className="flex space-x-2 items-baseline">
+            <span className="text-gray-500">Total Invested</span>
+            <span> </span>
+            <span> </span>
+            <span> </span>
+            <span className="text-4xl">$7000</span>
+          </div>
         </div>
       </div>
       <div>
-
         <div className="grid grid-cols-4 gap-1">
           {items.map((strategy) => (
             <StrategyCard
               id={strategy.id.toString()}
               name={strategy.name}
+              description={strategy.description}
               onCardClick={() => router.push(`/strategy/${strategy.id}`)}
             />
           ))}
@@ -55,6 +68,7 @@ export default function Home() {
           {strategies.slice(3).map((strategy) => (
             <StrategyCard
               id={strategy.id.toString()}
+              description={strategy.description}
               name={strategy.name}
               onCardClick={() => router.push(`/strategy/${strategy.id}`)}
             />

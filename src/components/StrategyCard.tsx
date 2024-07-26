@@ -10,7 +10,7 @@ const StrategyCard = ({
   addButton,
 }: {
   id?: string;
-  name: string;
+  name?: string;
   description?: string;
   onCardClick: () => void;
   addButton?: boolean;
@@ -41,7 +41,8 @@ const StrategyCard = ({
           <PiPlusLight className="h-40 w-40" />
         ) : (
           <>
-            <div className="text-xl">{name}</div>
+            <div className="text-3xl text-gray-500">{name}</div>
+            <div className="text-sm ">{description}</div>
           </>
         )}
       </CardBody>
