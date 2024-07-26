@@ -8,11 +8,6 @@ const DepositNode = (props: NodeProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const reactflow = useReactFlow();
 
-  const handleDeleteClick = (event: React.MouseEvent) => {
-    event.stopPropagation();
-    reactflow.setNodes((nodes) => nodes.filter((node) => node.id !== props.id));
-  };
-
   const handleEditClick = (event: React.MouseEvent) => {
     event.stopPropagation();
     setIsDialogOpen(true);
@@ -39,23 +34,13 @@ const DepositNode = (props: NodeProps) => {
               onClick={handleEditClick}
               aria-label="Edit Deposit"
             />
-            <FaTrash
-              className="text-gray-800 cursor-pointer hover:text-red-600"
-              onClick={handleDeleteClick}
-              aria-label="Delete Deposit"
-            />
           </div>
         </div>
-        {isDialogOpen && (
-          <div onClick={(e) => e.stopPropagation()}>
-            <DepositCard open={isDialogOpen} onClose={handleDialogClose} />
-          </div>
-        )}
       </ParentNode>
 
       {isDialogOpen && (
         <div onClick={(e) => e.stopPropagation()}>
-          <DepositCard open={isDialogOpen} onClose={handleDialogClose} />
+          <DepositCard open={isDialogOpen} onClose={handleDialogClose} data={props.data} />
         </div>
       )}
     </>

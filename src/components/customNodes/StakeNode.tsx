@@ -1,17 +1,11 @@
 import React, { useState } from "react";
 import { ParentNode } from "./parentNode";
-import { FaEdit, FaTrash } from "react-icons/fa";
 import StakeCard from "../inputCards/StakeCard";
-import { NodeProps, useReactFlow } from "reactflow";
+import { NodeProps } from "reactflow";
 
 const StakeNode = (props: NodeProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const reactflow = useReactFlow();
 
-  const handleDeleteClick = (event: React.MouseEvent) => {
-    event.stopPropagation();
-    reactflow.setNodes((nodes) => nodes.filter((node) => node.id !== props.id));
-  };
 
   const handleDialogClose = () => {
     setIsDialogOpen(false);
@@ -25,23 +19,13 @@ const StakeNode = (props: NodeProps) => {
             <span className="font-semibold">Stake {props.data.label}</span>
           </div>
           <div className="flex gap-2">
-            <FaTrash
-              className="text-gray-800 cursor-pointer hover:text-red-600"
-              onClick={handleDeleteClick}
-              aria-label="Delete Stake"
-            />
           </div>
         </div>
-        {isDialogOpen && (
-          <div onClick={(e) => e.stopPropagation()}>
-            <StakeCard open={isDialogOpen} onClose={handleDialogClose} />
-          </div>
-        )}
       </ParentNode>
 
       {isDialogOpen && (
         <div onClick={(e) => e.stopPropagation()}>
-          <StakeCard open={isDialogOpen} onClose={handleDialogClose} />
+          <StakeCard open={isDialogOpen} onClose={handleDialogClose} data={props.data}/>
         </div>
       )}
     </>

@@ -18,7 +18,15 @@ const StrategyCard = ({
   return (
     <Card
       key={id}
-      className="h-[21rem] w-[21rem] rounded-none bg-gray-900 border border-gray-800 flex justify-center items-center hover:bg-gray-900/65"
+      {...(addButton
+        ? {
+            className:
+              "h-[21rem] w-[21rem] rounded-none bg-gray-900/50 border border-gray-800 flex justify-center items-center hover:bg-gray-900/20",
+          }
+        : {
+            className:
+              "h-[21rem] w-[21rem] rounded-none bg-gray-900 border border-gray-800 flex justify-center items-center hover:bg-gray-900/65",
+          })}
       placeholder={undefined}
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}

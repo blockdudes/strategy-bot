@@ -17,10 +17,10 @@ import {
 
 import "reactflow/dist/style.css";
 import { useCallback } from "react";
-import { FaPlus } from "react-icons/fa";
-import { FiSend } from "react-icons/fi";
+import { FaPaperPlane, FaPlus, FaTrash } from "react-icons/fa";
 import { NodeSelector } from "@/components/NodeSelector";
 import MultiSwapNode from "@/components/customNodes/MultiSwapNode";
+import CreateTransactionDialog from "@/components/CreateTransactionDialog";
 
 const ClientCreateStrategy = () => {
   const router = useRouter();
@@ -30,10 +30,20 @@ const ClientCreateStrategy = () => {
 
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  const [open, setOpen] = useState(false);
+  const [openNodeSelector, setOpenNodeSelector] = useState(false);
+  const [openCreateTransactionDialog, setOpenCreateTransactionDialog] =
+    useState(false);
 
-  const handleOpen = () => {
-    setOpen((prev) => !prev);
+  const handleDeleteLastNode = () => {
+    setNodes((prev) => prev.slice(0, -1));
+  };
+
+  const handleOpenNodeSelector = () => {
+    setOpenNodeSelector((prev) => !prev);
+  };
+
+  const handleOpenCreateTransactionDialog = () => {
+    setOpenCreateTransactionDialog((prev) => !prev);
   };
 
   const nodeTypes = useMemo(
@@ -52,7 +62,11 @@ const ClientCreateStrategy = () => {
   );
 
   return (
-    <div>
+    <>
+      <CreateTransactionDialog
+        open={openCreateTransactionDialog}
+        handleOpen={handleOpenCreateTransactionDialog}
+      />
       <div className="w-[87vw] h-[80vh]">
         <ReactFlow
           className="w-full h-full"
@@ -63,7 +77,10 @@ const ClientCreateStrategy = () => {
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
         >
-          <NodeSelector open={open} handleOpen={handleOpen} />
+          <NodeSelector
+            open={openNodeSelector}
+            handleOpen={handleOpenNodeSelector}
+          />
           <Background gap={12} size={1} />
         </ReactFlow>
       </div>
@@ -72,7 +89,18 @@ const ClientCreateStrategy = () => {
           variant="gradient"
           color="white"
           size="lg"
-          onClick={handleOpen}
+          onClick={handleDeleteLastNode}
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
+          <FaTrash size={20} />
+        </IconButton>
+        <IconButton
+          variant="gradient"
+          color="white"
+          size="lg"
+          onClick={handleOpenNodeSelector}
           placeholder={undefined}
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
@@ -83,15 +111,15 @@ const ClientCreateStrategy = () => {
           variant="gradient"
           color="white"
           size="lg"
-          onClick={() => {router.push("/")}}
+          onClick={handleOpenCreateTransactionDialog}
           placeholder={undefined}
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          <FiSend size={20} />
+          <FaPaperPlane size={20} />
         </IconButton>
       </div>
-    </div>
+    </>
   );
 };
 export default ClientCreateStrategy;

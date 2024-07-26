@@ -8,11 +8,6 @@ const SwapNode = (props: NodeProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const reactflow = useReactFlow();
 
-  const handleDeleteClick = (event: React.MouseEvent) => {
-    event.stopPropagation();
-    reactflow.setNodes((nodes) => nodes.filter((node) => node.id !== props.id));
-  };
-
   const handleEditClick = (event: React.MouseEvent) => {
     event.stopPropagation();
     setIsDialogOpen(true);
@@ -41,18 +36,8 @@ const SwapNode = (props: NodeProps) => {
               onClick={handleEditClick}
               aria-label="Edit"
             />
-            <FaTrash
-              className="text-gray-800 cursor-pointer hover:text-red-600"
-              onClick={handleDeleteClick}
-              aria-label="Delete"
-            />
           </div>
         </div>
-        {isDialogOpen && (
-          <div onClick={(e) => e.stopPropagation()}>
-            <SwapCard open={isDialogOpen} onClose={handleDialogClose} />
-          </div>
-        )}
       </ParentNode>
 
       {isDialogOpen && (

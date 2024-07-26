@@ -1,33 +1,34 @@
-import React from "react";
-import { ParentCard } from "./parentCard";
+"use client";
 import {
+  Button,
   Dialog,
-  DialogHeader,
   DialogBody,
   DialogFooter,
+  DialogHeader,
   Input,
-  Button,
 } from "@material-tailwind/react";
+import React from "react";
+import { useRouter } from "next/navigation";
 
-const DepositCard = ({
+const CreateTransactionDialog = ({
   open,
-  onClose,
-  data,
+  handleOpen,
 }: {
   open: boolean;
-  onClose: () => void;
-  data: {};
+  handleOpen: () => void;
 }) => {
-  const handleSave = () => {
-    console.log("Saving");
-    onClose();
+  const router = useRouter();
+  const handleConfirm = () => {
+    console.log("Confirmed");
+    router.push("/");
+    handleOpen();
   };
 
   return (
     <Dialog
       open={open}
-      handler={() => {}}
-      className="bg-gray-900 text-white"
+      handler={handleOpen}
+      className="bg-gray-900"
       placeholder={undefined}
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}
@@ -38,28 +39,35 @@ const DepositCard = ({
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        Edit Deposit Node
+        Create Transaction
       </DialogHeader>
       <DialogBody
-        className="text-white"
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        <ParentCard>
-          <div className="flex flex-col space-y-4">
-            <Input
-              type="number"
-              size="lg"
-              color="blue"
-              label="Amount"
-              className=" !text-white"
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-              crossOrigin={undefined}
-            />
-          </div>
-        </ParentCard>
+        <div className="w-full flex flex-col space-y-2">
+        <Input
+          type=""
+          size="lg"
+          color="white"
+          label="Name"
+          className=" !text-white"
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+          crossOrigin={undefined}
+        />
+        <Input
+          type=""
+          size="lg"
+          color="white"
+          label="Description"
+          className=" !text-white"
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+          crossOrigin={undefined}
+        />
+        </div>
       </DialogBody>
       <DialogFooter
         className="flex space-x-2"
@@ -70,7 +78,7 @@ const DepositCard = ({
         <Button
           variant="text"
           color="red"
-          onClick={onClose}
+          onClick={handleOpen}
           className="text-gray-400 hover:text-red-600"
           placeholder={undefined}
           onPointerEnterCapture={undefined}
@@ -79,18 +87,18 @@ const DepositCard = ({
           Cancel
         </Button>
         <Button
-          onClick={handleSave}
           variant="filled"
           className="bg-gray-800 hover:bg-gray-700"
+          onClick={handleConfirm}
           placeholder={undefined}
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
-          Save
+          Create
         </Button>
       </DialogFooter>
     </Dialog>
   );
 };
 
-export default DepositCard;
+export default CreateTransactionDialog;

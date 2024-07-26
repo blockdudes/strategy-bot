@@ -11,11 +11,12 @@ export default function Home() {
   const router = useRouter();
 
   const addStrategy = () => {
-    router.push(`/create/${strategies.length + 1}`);
+    router.push(`/create/`);
     const newId = strategies.length + 1; // Adjust the ID to be based on current length
     const newStrategy = {
       id: newId,
       name: `Strategy ${newId}`,
+      description: "lorem ipsum doler sit amet lorem ipsum doler sit amet lorem ipsum doler sit amet lorem ipsum doler sit amet ",
     };
     setStrategies([...strategies, newStrategy]);
   };
@@ -27,8 +28,9 @@ export default function Home() {
   return (
     <div className="px-6 pt-14 w-full space-y-2">
       <div className="flex justify-between items-center">
-        <div className="text-3xl h-44 w-full p-4 bg-gray-900 border border-gray-800">
+        <div className="text-3xl flex flex-col h-44 w-full p-4 bg-gray-900 border border-gray-800">
           Balance
+          total invested
         </div>
       </div>
       <div>

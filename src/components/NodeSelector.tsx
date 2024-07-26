@@ -33,9 +33,9 @@ export const NodeSelector = ({
   }[] = [
     {
       label: "Deposit Node",
-      icon: <div />, // Icons can be added here
+      icon: <div />,
       type: "deposit",
-      color: "blue-500", // Node-specific color for the outline
+      color: "blue-500",
       data: { amount: "0" },
     },
     {
@@ -50,7 +50,7 @@ export const NodeSelector = ({
       icon: <div />,
       type: "stake",
       color: "purple-500",
-      data: {},
+      data: { amount: "0" },
     },
     {
       label: "MultiSwap Node",
@@ -64,7 +64,7 @@ export const NodeSelector = ({
   const handleAddNode = () => {
     const reactflowNodes = reactflow.getNodes();
     const sourceNode = reactflowNodes[reactflowNodes.length - 1];
-    const nodeId = new ShortUniqueId({ length: 5 }).rnd();
+    const nodeId = "action" + reactflowNodes.length.toString();
     if (sourceNode) {
       reactflow.setNodes((reactflowNodes) => [
         ...reactflowNodes,

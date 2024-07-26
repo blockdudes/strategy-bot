@@ -11,9 +11,11 @@ import {
 const StakeCard = ({
     open,
     onClose,
+    data
 }: {
     open: boolean;
     onClose: () => void;
+    data: {};
 }) => {
 
   const handleSave = () => {
