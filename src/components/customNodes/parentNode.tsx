@@ -1,7 +1,13 @@
 import { Handle, Position } from "reactflow";
 import React, { ReactNode } from "react";
 
-export const ParentNode = ({ children }: { children: ReactNode }) => {
+export const ParentNode = ({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) => {
   const handleStyleLeft = {
     height: "10px",
     width: "10px",
@@ -20,8 +26,11 @@ export const ParentNode = ({ children }: { children: ReactNode }) => {
     zIndex: -1,
   };
 
+  const defaultClassName = "h-[100px] w-[200px] bg-[#4C4C4C] rounded-xl p-4";
+  const combinedClassName = `${defaultClassName} ${className}`;
+
   return (
-    <div className="h-[100px] w-[200px] bg-[#4C4C4C] rounded-xl transition-all duration-300 ease-in-out">
+    <div className={combinedClassName}>
       <Handle type="target" position={Position.Top} style={handleStyleLeft} />
       {children}
       <Handle

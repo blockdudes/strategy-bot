@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { ParentNode } from "./parentNode";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import DepositCard from "../inputCards/DepositCard";
 import { NodeProps, useReactFlow } from "reactflow";
+import MultiSwapCard from "../inputCards/MultiSwapCard";
 
-const DepositNode = (props: NodeProps) => {
+const MultiSwapNode = (props: NodeProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const reactflow = useReactFlow();
 
@@ -24,42 +24,36 @@ const DepositNode = (props: NodeProps) => {
 
   return (
     <>
-      <ParentNode className="bg-gradient-to-r from-blue-200 via-blue-300 to-blue-400 rounded-lg shadow-lg p-4 text-gray-800 transition duration-300 ease-in-out hover:from-blue-300 hover:via-blue-400 hover:to-blue-500">
+      <ParentNode className="bg-gradient-to-r from-green-200 via-green-300 to-teal-300 rounded-lg shadow-lg p-4 text-gray-800 transition duration-300 ease-in-out hover:from-green-300 hover:via-green-400 hover:to-teal-400">
         <div className="flex justify-between items-center">
           <div className="flex flex-col">
-            <span className="font-semibold">Deposit {props.data.label}</span>
+            <span className="font-semibold">MultiSwap</span>
             <div className="text-white text-sm">
-              <span className="font-semibold">Amount {props.data.amount}</span>
+              <span className="font-semibold">DAI {props.data.dai}</span>
+              <span className="font-semibold">USDC {props.data.usdc}</span>
             </div>
           </div>
-          
           <div className="flex gap-2">
             <FaEdit
               className="text-gray-800 cursor-pointer hover:text-white"
               onClick={handleEditClick}
-              aria-label="Edit Deposit"
+              aria-label="Edit"
             />
             <FaTrash
               className="text-gray-800 cursor-pointer hover:text-red-600"
               onClick={handleDeleteClick}
-              aria-label="Delete Deposit"
+              aria-label="Delete"
             />
           </div>
         </div>
         {isDialogOpen && (
           <div onClick={(e) => e.stopPropagation()}>
-            <DepositCard open={isDialogOpen} onClose={handleDialogClose} />
+            <MultiSwapCard open={isDialogOpen} onClose={handleDialogClose} />
           </div>
         )}
       </ParentNode>
-
-      {isDialogOpen && (
-        <div onClick={(e) => e.stopPropagation()}>
-          <DepositCard open={isDialogOpen} onClose={handleDialogClose} />
-        </div>
-      )}
     </>
   );
 };
 
-export default DepositNode;
+export default MultiSwapNode;

@@ -3,15 +3,13 @@ import DepositNode from "@/components/customNodes/DepositNode";
 import StakeNode from "@/components/customNodes/StakeNode";
 import SwapNode from "@/components/customNodes/SwapNode";
 
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@material-tailwind/react";
+import { IconButton } from "@material-tailwind/react";
 
 import {
   addEdge,
   Background,
-  Controls,
-  MiniMap,
   ReactFlow,
   useEdgesState,
   useNodesState,
@@ -19,44 +17,31 @@ import {
 
 import "reactflow/dist/style.css";
 import { useCallback } from "react";
+import { FaPlus } from "react-icons/fa";
+import { FiSend } from "react-icons/fi";
+import { NodeSelector } from "@/components/NodeSelector";
+import MultiSwapNode from "@/components/customNodes/MultiSwapNode";
 
 const ClientCreateStrategy = () => {
   const router = useRouter();
 
-  const initialNodes = [
-    {
-      id: "1",
-      type: "deposit",
-      position: { x: 0, y: 0 },
-      data: { label: "1" },
-    },
-    {
-      id: "2",
-      type: "stake",
-      position: { x: 0, y: 150 },
-      data: { label: "2" },
-    },
-    {
-      id: "3",
-      type: "swap",
-      position: { x: 0, y: 300 },
-      data: { label: "3" },
-    },
-  ];
-  const initialEdges = [
-    { id: "e1-2", source: "1", target: "2" },
-    { id: "e2-3", source: "2", target: "3" },
-    { id: "e3-4", source: "3", target: "4" },
-  ];
+  // const initialNodes = [{}];
+  // const initialEdges = [{}];
 
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [nodes, setNodes, onNodesChange] = useNodesState([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen((prev) => !prev);
+  };
 
   const nodeTypes = useMemo(
     () => ({
       deposit: DepositNode,
       stake: StakeNode,
       swap: SwapNode,
+      multiswap: MultiSwapNode,
     }),
     []
   );
@@ -68,8 +53,9 @@ const ClientCreateStrategy = () => {
 
   return (
     <div>
-      <div className="w-[90vw] h-[90vh]">
+      <div className="w-[87vw] h-[80vh]">
         <ReactFlow
+          className="w-full h-full"
           nodes={nodes}
           edges={edges}
           nodeTypes={nodeTypes}
@@ -77,17 +63,34 @@ const ClientCreateStrategy = () => {
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
         >
+          <NodeSelector open={open} handleOpen={handleOpen} />
           <Background gap={12} size={1} />
         </ReactFlow>
       </div>
-      <Button
-        onClick={() => router.push("/")}
-        placeholder={undefined}
-        onPointerEnterCapture={undefined}
-        onPointerLeaveCapture={undefined}
-      >
-        Back
-      </Button>
+      <div className="absolute top-80 right-12 flex flex-col gap-5">
+        <IconButton
+          variant="gradient"
+          color="white"
+          size="lg"
+          onClick={handleOpen}
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
+          <FaPlus size={20} />
+        </IconButton>
+        <IconButton
+          variant="gradient"
+          color="white"
+          size="lg"
+          onClick={() => {router.push("/")}}
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
+          <FiSend size={20} />
+        </IconButton>
+      </div>
     </div>
   );
 };
