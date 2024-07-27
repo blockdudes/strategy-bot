@@ -15,38 +15,61 @@ const MultiSwapCard = ({
   open,
   onClose,
   data,
+  onSave,
 }: {
   open: boolean;
   onClose: () => void;
-  data: {};
+  data: any;
+  onSave: (data: any) => void;
 }) => {
-  const [tokenOutputs, setTokenOutputs] = useState([{ token: "", amount: "" }]);
+  const [formData, setFormData] = useState({
+    inputToken: data.inputToken || "",
+    inputTokenAmount: data.inputTokenAmount || "0",
+    outputTokensToken: data.outputToken?.token || [""],
+    outputTokensAmount: data.outputToken?.amount || [""],
+  });
+
+  // const [tokenOutputs, setTokenOutputs] = useState([{ token: "", amount: "" }]);
 
   const handleAddOutput = () => {
-    setTokenOutputs([...tokenOutputs, { token: "", amount: "" }]);
+    setFormData({
+      ...formData,
+      outputTokensToken: [...formData.outputTokensToken, ""],
+      outputTokensAmount: [...formData.outputTokensAmount, ""],
+    });
   };
 
   const handleRemoveOutput = () => {
-    if (tokenOutputs.length > 1) {
-      setTokenOutputs(tokenOutputs.slice(0, -1));
+    if (formData.outputTokensToken.length > 1) {
+      setFormData({
+        ...formData,
+        outputTokensToken: formData.outputTokensToken.slice(0, -1),
+        outputTokensAmount: formData.outputTokensAmount.slice(0, -1),
+      });
     }
   };
 
+  const handleChange = (
+    name: string,
+    val: React.ChangeEvent<HTMLInputElement>,
+    index?: number
+  ) => {
+    const newValue = val.target.value;
+
+    setFormData((prevData) => {
+      if (name.startsWith('outputTokens')) {
+        const [field, indexStr] = name.split('[');
+        const updatedArray = [...prevData[field as keyof typeof prevData]];
+        updatedArray[index as number] = newValue;
+        return { ...prevData, [field]: updatedArray };
+      }
+      return { ...prevData, [name]: newValue };
+    });
+  };
+
   const handleSave = () => {
-    console.log("Saving", tokenOutputs);
+    onSave(formData);
     onClose();
-  };
-
-  const handleTokenChange = (index: number, value: string) => {
-    const newOutputs = [...tokenOutputs];
-    newOutputs[index].token = value;
-    setTokenOutputs(newOutputs);
-  };
-
-  const handleAmountChange = (index: number, value: string) => {
-    const newOutputs = [...tokenOutputs];
-    newOutputs[index].amount = value;
-    setTokenOutputs(newOutputs);
   };
 
   return (
@@ -78,7 +101,9 @@ const MultiSwapCard = ({
               type=""
               size="lg"
               color="teal"
-              label="Input Token"
+              label="Input Token Address"
+              value={formData.inputToken}
+              onChange={(e) => handleChange("inputToken", e)}
               className=" !text-white"
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
@@ -90,6 +115,8 @@ const MultiSwapCard = ({
               color="teal"
               label="Token Amount"
               className=" !text-white"
+              value={formData.inputTokenAmount}
+              onChange={(e) => handleChange("inputTokenAmount", e)}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
               crossOrigin={undefined}
@@ -119,32 +146,28 @@ const MultiSwapCard = ({
               Remove Output
             </Button>
           </div>
-          {tokenOutputs.map((output, index) => (
+          {formData.outputTokensToken.map((output: string, index: number) => (
             <div key={index} className="flex space-x-4 mb-4">
-              <Select
-                variant="outlined"
-                color="teal"
+              <Input
+                type="text"
                 size="lg"
-                label="Select Asset"
-                value={output.token}
-                onChange={(value) => handleTokenChange(index, value ?? "")}
+                color="teal"
+                label="Output Token Address"
                 className="!text-white w-full"
-                placeholder={undefined}
+                value={formData.outputTokensToken[index]}
+                onChange={(e) => handleChange("outputTokensToken", e, index)}
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
-              >
-                <Option value="DAI">DAI</Option>
-                <Option value="USDC">USDC</Option>
-                <Option value="DOT">DOT</Option>
-              </Select>
+                crossOrigin={undefined}
+              />
               <Input
                 type="number"
                 size="lg"
                 color="teal"
-                label="Amount"
-                value={output.amount}
-                onChange={(e) => handleAmountChange(index, e.target.value)}
+                label="Percentage"
                 className="!text-white w-full"
+                value={formData.outputTokensAmount[index]}
+                onChange={(e) => handleChange("outputTokensAmount", e, index)}
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
                 crossOrigin={undefined}

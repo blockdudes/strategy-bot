@@ -1,4 +1,5 @@
-import React from "react";
+"use-client";
+import React, { useState } from "react";
 import { ParentCard } from "./parentCard";
 import {
   Dialog,
@@ -13,13 +14,31 @@ const DepositCard = ({
   open,
   onClose,
   data,
+  onSave,
 }: {
   open: boolean;
   onClose: () => void;
-  data: {};
+  data: any;
+  onSave: (data: any) => void;
 }) => {
+  const [formData, setFormData] = useState({
+    amount: data?.amount || "",
+  });
+
+  const handleChange = (
+    name: string,
+    val: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const newValue = val.target.value;
+
+    setFormData({
+      ...formData,
+      [name]: newValue,
+    });
+  };
+
   const handleSave = () => {
-    console.log("Saving");
+    onSave(formData);
     onClose();
   };
 
@@ -53,6 +72,8 @@ const DepositCard = ({
               size="lg"
               color="blue"
               label="Amount"
+              value={formData.amount}
+              onChange={(val) => handleChange("amount", val)}
               className=" !text-white"
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
