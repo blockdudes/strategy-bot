@@ -8,6 +8,8 @@ import {
   DialogFooter,
   Input,
   Button,
+  Select,
+  Option,
 } from "@material-tailwind/react";
 
 const DepositCard = ({
@@ -22,21 +24,23 @@ const DepositCard = ({
   onSave: (data: any) => void;
 }) => {
   const [formData, setFormData] = useState({
+    inputToken: data?.inputToken || "",
     minAmount: data?.minAmount || "",
     maxAmount: data?.maxAmount || "",
   });
 
   const handleChange = (
     name: string,
-    val: React.ChangeEvent<HTMLInputElement>
+    val: string | React.ChangeEvent<HTMLInputElement>
   ) => {
-    const newValue = val.target.value;
+    const newValue = typeof val === 'string' ? val : val.target.value;
 
     setFormData({
       ...formData,
       [name]: newValue,
     });
   };
+
 
   const handleSave = () => {
     onSave(formData);
@@ -68,6 +72,19 @@ const DepositCard = ({
       >
         <ParentCard>
           <div className="flex flex-col space-y-4">
+            <Select
+              variant="outlined"
+              color="teal"
+              label="Select Token"
+              className="text-white"
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+              value={formData.inputToken}
+              onChange={(val) =>  val && handleChange("inputToken", val)}
+            >
+              <Option value="USDT">USDT</Option>
+            </Select>
             <Input
               type="number"
               size="lg"

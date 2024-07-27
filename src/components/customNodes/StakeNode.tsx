@@ -13,10 +13,10 @@ const StakeNode = (props: NodeProps) => {
 
   return (
     <>
-      <ParentNode className="bg-gradient-to-r from-lilac-200 via-lilac-300 to-lilac-400 rounded-lg shadow-lg p-4 text-gray-800 transition duration-300 ease-in-out hover:from-lilac-300 hover:via-lilac-400 hover:to-lilac-500">
+      <ParentNode className="bg-gradient-to-r from-lilac-200 via-lilac-300 to-lilac-400 rounded-lg shadow-lg p-4 text-black transition duration-300 ease-in-out hover:from-lilac-300 hover:via-lilac-400 hover:to-lilac-500">
         <div className="flex justify-between items-center">
           <div className="flex flex-col">
-            <span className="font-semibold">Stake {props.data.label}</span>
+            <span className="font-semibold">Stake</span>
           </div>
           <div className="flex gap-2">
           </div>

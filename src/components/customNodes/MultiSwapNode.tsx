@@ -38,8 +38,6 @@ const MultiSwapNode = (props: NodeProps<MultiSwapDataType>) => {
             <span className="font-semibold">MultiSwap</span>
             <div className="text-white text-sm flex flex-col">
               <div>
-              <span className="font-semibold">ip token </span><span className="text-gray-900">{truncate(nodeData.inputToken)}</span>
-              {/* <span className="font-semibold">ip token </span><span className="text-gray-900">{truncate("0x1dSk023ndoDj12ewjdsamdAbd")}</span> */}
               </div>
             </div>
           </div>

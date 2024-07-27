@@ -26,6 +26,11 @@ const DepositNode = (props: NodeProps<DepositDataType>) => {
     console.log("Saved data:", data);
   };
 
+  const truncate = (address: string) => {
+    if (!address) return "";
+    return `${address.slice(0, 3)}....${address.slice(-5)}`;
+  };
+
   return (
     <>
       <ParentNode className="bg-gradient-to-r from-blue-200 via-blue-300 to-blue-400 rounded-lg shadow-lg p-4 text-black transition duration-300 ease-in-out hover:from-blue-300 hover:via-blue-400 hover:to-blue-500">
@@ -33,10 +38,26 @@ const DepositNode = (props: NodeProps<DepositDataType>) => {
           <div className="flex flex-col">
             <span className="font-semibold">Deposit</span>
             <div className="text-white text-sm flex flex-col">
-              <span className="font-semibold">min Amount</span> <span className="text-blue-gray-900"> {nodeData.minAmount}</span>
-              {/* <span className="font-semibold">min Amount</span> <span className="text-blue-gray-900"> 1</span> */}
-              <span className="font-semibold">max Amount</span> <span className="text-blue-gray-900"> {nodeData.maxAmount}</span>
-              {/* <span className="font-semibold">max Amount</span> <span className="text-blue-gray-900"> 1000</span> */}
+              <div>
+                {/* <span className="font-semibold">token</span>{" "}
+                <span className="text-blue-gray-900">
+                  {" "}
+                  {nodeData.inputToken}
+                </span> */}
+                <span className="font-semibold">token</span>{" "}
+                <span className="text-blue-gray-900">
+                  {" "}
+                  {"USDT"}
+                </span>
+              </div>
+              <div>
+                {/* <span className="font-semibold">min Amount</span>{" "}
+                <span className="text-blue-gray-900">
+                  {" "}
+                  {nodeData.minAmount}
+                </span> */}
+                <span className="font-semibold">min Amount</span> <span className="text-blue-gray-900"> 1</span>
+              </div>
             </div>
           </div>
 

@@ -33,13 +33,13 @@ const StrategyDetailsSimulation = () => {
     },
     {
       id: "2",
-      type: "stake",
+      type: "multiswap",
       position: { x: 80, y: 250 },
       data: { label: "2" },
     },
     {
       id: "3",
-      type: "multiswap",
+      type: "stake",
       position: { x: 80, y: 400 },
       data: { label: "3" },
     },

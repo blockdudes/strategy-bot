@@ -29,13 +29,13 @@ const StrategyCard = ({
           })}
       placeholder={undefined}
       onPointerEnterCapture={undefined}
+      onClick={onCardClick}
       onPointerLeaveCapture={undefined}
     >
       <CardBody
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
-        onClick={onCardClick}
       >
         {addButton ? (
           <PiPlusLight className="h-40 w-40" />

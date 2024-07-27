@@ -5,16 +5,13 @@ const TABLE_HEAD = [
 ];
 
 const TRANSACTIONS = [
-  // {
-  //   type: "Deposit",
-  //   amount: "2",
-  //   time: "2024-07-27 20:12:05",
-  //   transactionAddress: "0xAbC123sDsdsCrsșwgvFd...",
-  //   userAddress: "0xUser1skEW2dzm2Dsds...",
-  // }
   {
-
-  }
+    type: "Deposit",
+    amount: "2",
+    time: "2024-07-27 20:12:05",
+    transactionAddress: "0xAbC123sDsdsCrsșwgvFd...",
+    userAddress: "0xUser1skEW2dzm2Dsds...",
+  },
 ];
 
 const StrategyDetailsTable = () => {

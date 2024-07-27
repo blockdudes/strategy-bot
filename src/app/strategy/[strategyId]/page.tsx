@@ -15,13 +15,13 @@ const StrategyDetailsPage = () => {
             <div className="flex flex-col space-y-2">
             <div className="text-4xl font-bold">
               <span className="text-gray-500">Strategy Balance </span>
-               {/* <span className="text-white text-2xl font-normal">$10000</span>   */}
-               <span className="text-white text-2xl font-normal">$0</span>  
+               <span className="text-white text-2xl font-normal">$2</span>  
+               {/* <span className="text-white text-2xl font-normal">$0</span>   */}
             </div>
             <div className="text-4xl font-bold">
               <span className="text-gray-500">Total Invested </span> 
-              {/* <span className="text-white text-2xl font-normal">$7000</span>   */}
-              <span className="text-white text-2xl font-normal">$0</span>  
+              <span className="text-white text-2xl font-normal">$2</span>  
+              {/* <span className="text-white text-2xl font-normal">$0</span>   */}
             </div>
             </div>
             <div className="flex flex-col space-y-2">

@@ -1,4 +1,5 @@
 export type DepositDataType = {
+    inputToken:string,
     minAmount: number,
     maxAmount: number,
 }

@@ -5,8 +5,7 @@ import StrategyCard from "@/components/StrategyCard";
 import { useContract } from "@/providers/thirdwebHook";
 
 export default function Home() {
-
-const { strategies } = useContract();
+  const { strategies } = useContract();
 
   // Prepare the strategy cards and include empty placeholders for empty slots
   const items = strategies.slice(0, 3); // Only take the first three for the first row
@@ -24,7 +23,7 @@ const { strategies } = useContract();
             <span> </span>
             <span> </span>
             {/* <span className="text-4xl">$12502</span>  */}
-            <span className="text-4xl">$12500</span> 
+            <span className="text-4xl">$12500</span>
           </div>
           <div className="flex space-x-2 items-baseline">
             <span className="text-gray-500">Total Invested</span>
@@ -40,6 +39,7 @@ const { strategies } = useContract();
         <div className="grid grid-cols-4 gap-1">
           {items.map((strategy) => (
             <StrategyCard
+            key={null}
               id={strategy.id.toString()}
               name={strategy.name}
               description={strategy.description}
@@ -50,6 +50,7 @@ const { strategies } = useContract();
             <div key={`empty-${i}`} className="h-[21rem] w-[21rem]"></div> // Empty divs to maintain grid structure
           ))}
           <StrategyCard
+            key={null}
             id="add"
             name="Add"
             onCardClick={() => router.push(`/create/`)}
@@ -57,6 +58,7 @@ const { strategies } = useContract();
           />
           {strategies.slice(3).map((strategy) => (
             <StrategyCard
+              key={strategy.id}
               id={strategy.id.toString()}
               description={strategy.description}
               name={strategy.name}
