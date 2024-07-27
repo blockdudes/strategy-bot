@@ -20,7 +20,7 @@ import { useCallback } from "react";
 import { FaPaperPlane, FaPlus, FaTrash } from "react-icons/fa";
 import { NodeSelector } from "@/components/NodeSelector";
 import MultiSwapNode from "@/components/customNodes/MultiSwapNode";
-import CreateTransactionDialog from "@/components/CreateTransactionDialog";
+import CreateStrategyDialog from "@/components/CreateStrategyDialog";
 
 const ClientCreateStrategy = () => {
   const router = useRouter();
@@ -31,7 +31,7 @@ const ClientCreateStrategy = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [openNodeSelector, setOpenNodeSelector] = useState(false);
-  const [openCreateTransactionDialog, setOpenCreateTransactionDialog] =
+  const [openCreateStrategyDialog, setOpenCreateStrategyDialog] =
     useState(false);
 
   const handleDeleteLastNode = () => {
@@ -42,8 +42,8 @@ const ClientCreateStrategy = () => {
     setOpenNodeSelector((prev) => !prev);
   };
 
-  const handleOpenCreateTransactionDialog = () => {
-    setOpenCreateTransactionDialog((prev) => !prev);
+  const handleOpenCreateStrategyDialog = () => {
+    setOpenCreateStrategyDialog((prev) => !prev);
   };
 
   const nodeTypes = useMemo(
@@ -63,9 +63,9 @@ const ClientCreateStrategy = () => {
 
   return (
     <>
-      <CreateTransactionDialog
-        open={openCreateTransactionDialog}
-        handleOpen={handleOpenCreateTransactionDialog}
+      <CreateStrategyDialog
+        open={openCreateStrategyDialog}
+        handleOpen={handleOpenCreateStrategyDialog}
       />
       <div className="w-[87vw] h-[80vh]">
         <ReactFlow
@@ -111,7 +111,7 @@ const ClientCreateStrategy = () => {
           variant="gradient"
           color="white"
           size="lg"
-          onClick={handleOpenCreateTransactionDialog}
+          onClick={handleOpenCreateStrategyDialog}
           placeholder={undefined}
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}

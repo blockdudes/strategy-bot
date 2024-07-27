@@ -2,29 +2,17 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import StrategyCard from "@/components/StrategyCard";
+import { useContract } from "@/providers/thirdwebHook";
 
 export default function Home() {
-  const [strategies, setStrategies] = useState<
-    { id: number; name: string; description: string }[]
-  >([]);
 
-  const router = useRouter();
-
-  const addStrategy = () => {
-    // router.push(`/create/`);
-    const newId = strategies.length + 1; // Adjust the ID to be based on current length
-    const newStrategy = {
-      id: newId,
-      name: `Strategy ${newId}`,
-      description:
-        "lorem ipsum doler sit amet lorem ipsum doler sit amet lorem ipsum doler sit amet lorem ipsum doler sit amet ",
-    };
-    setStrategies([...strategies, newStrategy]);
-  };
+const { strategies } = useContract();
 
   // Prepare the strategy cards and include empty placeholders for empty slots
   const items = strategies.slice(0, 3); // Only take the first three for the first row
   const emptySlots = 3 - items.length; // Calculate remaining slots before the Add button
+
+  const router = useRouter();
 
   return (
     <div className="px-6 pt-14 w-full ">
@@ -35,14 +23,16 @@ export default function Home() {
             <span> </span>
             <span> </span>
             <span> </span>
-            <span className="text-4xl">$10000</span>
+            {/* <span className="text-4xl">$12502</span>  */}
+            <span className="text-4xl">$12500</span> 
           </div>
           <div className="flex space-x-2 items-baseline">
             <span className="text-gray-500">Total Invested</span>
             <span> </span>
             <span> </span>
             <span> </span>
-            <span className="text-4xl">$7000</span>
+            {/* <span className="text-4xl">$26202</span> */}
+            <span className="text-4xl">$26200</span>
           </div>
         </div>
       </div>
@@ -62,7 +52,7 @@ export default function Home() {
           <StrategyCard
             id="add"
             name="Add"
-            onCardClick={addStrategy}
+            onCardClick={() => router.push(`/create/`)}
             addButton={true}
           />
           {strategies.slice(3).map((strategy) => (

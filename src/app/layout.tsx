@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ConnectButton, ThirdwebProvider } from "thirdweb/react";
 import { client } from "@/lib/client";
-
+import { ContractProvider } from "@/providers/thirdwebHook";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <ContractProvider>
           <ThirdwebProvider>
             <div className="absolute top-3 right-3">
               <div className="flex justify-center mb-20">
@@ -34,6 +35,7 @@ export default function RootLayout({
             </div>
             {children}
           </ThirdwebProvider>
+        </ContractProvider>
       </body>
     </html>
   );

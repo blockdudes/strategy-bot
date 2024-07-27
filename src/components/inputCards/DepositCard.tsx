@@ -22,7 +22,8 @@ const DepositCard = ({
   onSave: (data: any) => void;
 }) => {
   const [formData, setFormData] = useState({
-    amount: data?.amount || "",
+    minAmount: data?.minAmount || "",
+    maxAmount: data?.maxAmount || "",
   });
 
   const handleChange = (
@@ -71,9 +72,21 @@ const DepositCard = ({
               type="number"
               size="lg"
               color="blue"
-              label="Amount"
-              value={formData.amount}
-              onChange={(val) => handleChange("amount", val)}
+              label="Min Amount"
+              value={formData.minAmount}
+              onChange={(val) => handleChange("minAmount", val)}
+              className=" !text-white"
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+              crossOrigin={undefined}
+            />
+            <Input
+              type="number"
+              size="lg"
+              color="blue"
+              label="Max Amount"
+              value={formData.maxAmount}
+              onChange={(val) => handleChange("maxAmount", val)}
               className=" !text-white"
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}

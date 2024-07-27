@@ -5,133 +5,16 @@ const TABLE_HEAD = [
 ];
 
 const TRANSACTIONS = [
+  // {
+  //   type: "Deposit",
+  //   amount: "2",
+  //   time: "2024-07-27 20:12:05",
+  //   transactionAddress: "0xAbC123sDsdsCrsșwgvFd...",
+  //   userAddress: "0xUser1skEW2dzm2Dsds...",
+  // }
   {
-    type: "Deposit",
-    amount: "1000",
-    time: "2023-07-10 14:22:05",
-    transactionAddress: "0xAbC123...",
-    userAddress: "0xUser1...",
-  },
-  {
-    type: "Withdraw",
-    amount: "500",
-    time: "2023-07-10 15:30:00",
-    transactionAddress: "0xAbD456...",
-    userAddress: "0xUser2...",
-  },
-  {
-    type: "Deposit",
-    amount: "2000",
-    time: "2023-07-11 09:45:12",
-    transactionAddress: "0xAbE789...",
-    userAddress: "0xUser3...",
-  },
-  {
-    type: "Deposit",
-    amount: "1000",
-    time: "2023-07-10 14:22:05",
-    transactionAddress: "0xAbC123...",
-    userAddress: "0xUser1...",
-  },
-  {
-    type: "Withdraw",
-    amount: "500",
-    time: "2023-07-10 15:30:00",
-    transactionAddress: "0xAbD456...",
-    userAddress: "0xUser2...",
-  },
-  {
-    type: "Deposit",
-    amount: "2000",
-    time: "2023-07-11 09:45:12",
-    transactionAddress: "0xAbE789...",
-    userAddress: "0xUser3...",
-  },
-  {
-    type: "Deposit",
-    amount: "1000",
-    time: "2023-07-10 14:22:05",
-    transactionAddress: "0xAbC123...",
-    userAddress: "0xUser1...",
-  },
-  {
-    type: "Withdraw",
-    amount: "500",
-    time: "2023-07-10 15:30:00",
-    transactionAddress: "0xAbD456...",
-    userAddress: "0xUser2...",
-  },
-  {
-    type: "Deposit",
-    amount: "2000",
-    time: "2023-07-11 09:45:12",
-    transactionAddress: "0xAbE789...",
-    userAddress: "0xUser3...",
-  },
-  {
-    type: "Deposit",
-    amount: "1000",
-    time: "2023-07-10 14:22:05",
-    transactionAddress: "0xAbC123...",
-    userAddress: "0xUser1...",
-  },
-  {
-    type: "Withdraw",
-    amount: "500",
-    time: "2023-07-10 15:30:00",
-    transactionAddress: "0xAbD456...",
-    userAddress: "0xUser2...",
-  },
-  {
-    type: "Deposit",
-    amount: "2000",
-    time: "2023-07-11 09:45:12",
-    transactionAddress: "0xAbE789...",
-    userAddress: "0xUser3...",
-  },
-  {
-    type: "Deposit",
-    amount: "1000",
-    time: "2023-07-10 14:22:05",
-    transactionAddress: "0xAbC123...",
-    userAddress: "0xUser1...",
-  },
-  {
-    type: "Withdraw",
-    amount: "500",
-    time: "2023-07-10 15:30:00",
-    transactionAddress: "0xAbD456...",
-    userAddress: "0xUser2...",
-  },
-  {
-    type: "Deposit",
-    amount: "2000",
-    time: "2023-07-11 09:45:12",
-    transactionAddress: "0xAbE789...",
-    userAddress: "0xUser3...",
-  },
-  {
-    type: "Deposit",
-    amount: "1000",
-    time: "2023-07-10 14:22:05",
-    transactionAddress: "0xAbC123...",
-    userAddress: "0xUser1...",
-  },
-  {
-    type: "Withdraw",
-    amount: "500",
-    time: "2023-07-10 15:30:00",
-    transactionAddress: "0xAbD456...",
-    userAddress: "0xUser2...",
-  },
-  {
-    type: "Deposit",
-    amount: "2000",
-    time: "2023-07-11 09:45:12",
-    transactionAddress: "0xAbE789...",
-    userAddress: "0xUser3...",
-  },
-  
+
+  }
 ];
 
 const StrategyDetailsTable = () => {

@@ -28,12 +28,15 @@ const DepositNode = (props: NodeProps<DepositDataType>) => {
 
   return (
     <>
-      <ParentNode className="bg-gradient-to-r from-blue-200 via-blue-300 to-blue-400 rounded-lg shadow-lg p-4 text-gray-800 transition duration-300 ease-in-out hover:from-blue-300 hover:via-blue-400 hover:to-blue-500">
+      <ParentNode className="bg-gradient-to-r from-blue-200 via-blue-300 to-blue-400 rounded-lg shadow-lg p-4 text-black transition duration-300 ease-in-out hover:from-blue-300 hover:via-blue-400 hover:to-blue-500">
         <div className="flex justify-between items-center">
           <div className="flex flex-col">
             <span className="font-semibold">Deposit</span>
-            <div className="text-white text-sm">
-              <span className="font-semibold">Amount {nodeData.amount}</span>
+            <div className="text-white text-sm flex flex-col">
+              <span className="font-semibold">min Amount</span> <span className="text-blue-gray-900"> {nodeData.minAmount}</span>
+              {/* <span className="font-semibold">min Amount</span> <span className="text-blue-gray-900"> 1</span> */}
+              <span className="font-semibold">max Amount</span> <span className="text-blue-gray-900"> {nodeData.maxAmount}</span>
+              {/* <span className="font-semibold">max Amount</span> <span className="text-blue-gray-900"> 1000</span> */}
             </div>
           </div>
 

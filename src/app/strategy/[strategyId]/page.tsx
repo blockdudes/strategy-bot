@@ -11,19 +11,25 @@ const StrategyDetailsPage = () => {
       </div>
       <div className="w-[63vw] h-[95vh]">
         <div className="w-full h-full flex flex-col justify-between">
-          <div className="flex flex-col w-full h-full space-y-4">
+          <div className="flex flex-col w-full h-full space-y-10">
+            <div className="flex flex-col space-y-2">
             <div className="text-4xl font-bold">
-              <span className="text-gray-500">Strategy Balance </span> <span className="text-white text-2xl font-normal">$10000</span>  
+              <span className="text-gray-500">Strategy Balance </span>
+               {/* <span className="text-white text-2xl font-normal">$10000</span>   */}
+               <span className="text-white text-2xl font-normal">$0</span>  
             </div>
             <div className="text-4xl font-bold">
-              <span className="text-gray-500">Total Invested </span> <span className="text-white text-2xl font-normal">$7000</span>  
+              <span className="text-gray-500">Total Invested </span> 
+              {/* <span className="text-white text-2xl font-normal">$7000</span>   */}
+              <span className="text-white text-2xl font-normal">$0</span>  
+            </div>
             </div>
             <div className="flex flex-col space-y-2">
             <div className="text-4xl font-bold">
-              Strategy Name
+              Core Staking
             </div>
             <div className="text-xl font-normal text-gray-500">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex dolorem fugiat temporibus sit est numquam voluptates reiciendis doloremque eius corrupti expedita deserunt, veritatis soluta a iste accusantium minus possimus vel!
+              A strategy for swap and staking
             </div>
             </div>
           </div>

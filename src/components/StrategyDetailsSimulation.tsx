@@ -20,7 +20,6 @@ import { useCallback } from "react";
 import { FaPaperPlane, FaPlus, FaTrash } from "react-icons/fa";
 import { NodeSelector } from "@/components/NodeSelector";
 import MultiSwapNode from "@/components/customNodes/MultiSwapNode";
-import CreateTransactionDialog from "@/components/CreateTransactionDialog";
 
 const StrategyDetailsSimulation = () => {
   const router = useRouter();
@@ -55,19 +54,9 @@ const StrategyDetailsSimulation = () => {
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
   const [openNodeSelector, setOpenNodeSelector] = useState(false);
-  const [openCreateTransactionDialog, setOpenCreateTransactionDialog] =
-    useState(false);
-
-  const handleDeleteLastNode = () => {
-    setNodes((prev) => prev.slice(0, -1));
-  };
 
   const handleOpenNodeSelector = () => {
     setOpenNodeSelector((prev) => !prev);
-  };
-
-  const handleOpenCreateTransactionDialog = () => {
-    setOpenCreateTransactionDialog((prev) => !prev);
   };
 
   const nodeTypes = useMemo(
@@ -87,10 +76,6 @@ const StrategyDetailsSimulation = () => {
 
   return (
     <>
-      <CreateTransactionDialog
-        open={openCreateTransactionDialog}
-        handleOpen={handleOpenCreateTransactionDialog}
-      />
       <div className="w-[27vw] h-[95vh]">
         <ReactFlow
           className="w-full h-full"

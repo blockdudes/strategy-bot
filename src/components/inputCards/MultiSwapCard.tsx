@@ -24,7 +24,6 @@ const MultiSwapCard = ({
 }) => {
   const [formData, setFormData] = useState({
     inputToken: data.inputToken || "",
-    inputTokenAmount: data.inputTokenAmount || "0",
     outputTokensToken: data.outputToken?.token || [""],
     outputTokensAmount: data.outputToken?.amount || [""],
   });
@@ -105,18 +104,6 @@ const MultiSwapCard = ({
               value={formData.inputToken}
               onChange={(e) => handleChange("inputToken", e)}
               className=" !text-white"
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-              crossOrigin={undefined}
-            />
-            <Input
-              type="number"
-              size="lg"
-              color="teal"
-              label="Token Amount"
-              className=" !text-white"
-              value={formData.inputTokenAmount}
-              onChange={(e) => handleChange("inputTokenAmount", e)}
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
               crossOrigin={undefined}
