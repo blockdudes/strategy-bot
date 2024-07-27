@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ThirdwebProvider } from "thirdweb/react";
-import React from "react";
+import { ConnectButton, ThirdwebProvider } from "thirdweb/react";
+import { client } from "@/lib/client";
+import { ContractProvider } from "@/providers/thirdwebHook";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,9 +19,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ThirdwebProvider>
-      <body className={inter.className}>{children}</body>
-      </ThirdwebProvider>
+      <body className={inter.className}>
+        <ContractProvider>
+          <ThirdwebProvider>
+            <div className="absolute top-3 right-3">
+              <div className="flex justify-center mb-20">
+                <ConnectButton
+                  client={client}
+                  appMetadata={{
+                    name: "Example App",
+                    url: "https://example.com",
+                  }}
+                />
+              </div>
+            </div>
+            {children}
+          </ThirdwebProvider>
+        </ContractProvider>
+      </body>
     </html>
   );
 }
