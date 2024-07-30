@@ -6,25 +6,25 @@ import { Investment, WithdrawalRequest } from '@/models/Investment';
 import { v4 as uuidv4 } from 'uuid';
 import Strategy from '@/models/Strategy';
 
-interface ExecutionStep {
-    executionContract: string;
-    data: string;
-    value: string;
-    type:string;
-}
+// interface ExecutionStep {
+//     executionContract: string;
+//     data: string;
+//     value: string;
+//     type:string;
+// }
 
 function generateNumericUUID() {
     const maxUint32 = 4294967295;
-    const timestamp = Date.now() % maxUint32; // Get the current timestamp and ensure it fits within uint32
-    const randomPart = Math.floor(Math.random() * maxUint32); // Generate a random number within uint32 range
-    return (timestamp + randomPart) % maxUint32; // Combine and ensure it fits within uint32 range
+    const timestamp = Date.now() % maxUint32; 
+    const randomPart = Math.floor(Math.random() * maxUint32); 
+    return (timestamp + randomPart) % maxUint32; 
 }
 
 
 export async function POST(request: NextRequest) {
     await connectToDatabase();
     try {
-        const { strategyOwner, ExecutionSteps, isPublic = true, strategyName, strategyDescription } : {strategyOwner: string, ExecutionSteps: ExecutionStep[], isPublic?: boolean, strategyName: string, strategyDescription: string} = await request.json();
+        const { strategyOwner, ExecutionSteps, isPublic = true, strategyName, strategyDescription } : {strategyOwner: string, ExecutionSteps: any[], isPublic?: boolean, strategyName: string, strategyDescription: string} = await request.json();
         
         console.log(strategyOwner, ExecutionSteps.length > 0);
         if (!strategyOwner || ExecutionSteps.length === 0) {
@@ -32,11 +32,11 @@ export async function POST(request: NextRequest) {
         }
 
         
-        const strategyId = generateNumericUUID(); // Static value for testing
+        const strategyId = generateNumericUUID(); 
         console.log(`Generated strategyId: ${strategyId}`);
 
-        // Validate strategyId
-        if (strategyId < 0 || strategyId > 4294967295) {
+        // if (strategyId < 0 || strategyId > 4294967295) {
+        if (strategyId < 0 ) {
             throw new Error(`strategyId out of bounds: ${strategyId}`);
         }
         
@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
 
         const isAdminExist = await Admin.findOne({ strategyOwner });
         if (!isAdminExist) {
-            const admin = new Admin({ strategyOwner, ownedStrategies: [strategyId] });
+            const admin = new Admin({ strategyOwner, ownedStrategies: [strategyId], totalBalance: 0 });
             await admin.save();
         } else { 
             await Admin.findOneAndUpdate({ strategyOwner }, { $push: { ownedStrategies: strategyId } });

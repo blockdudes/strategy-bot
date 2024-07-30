@@ -19,7 +19,8 @@ interface IAdmin extends Document {
 
 const AdminSchema: Schema<IAdmin> = new Schema({
   strategyOwner: { type: String, required: true, unique: true, lowercase: true },
-  ownedStrategies: [{ type: String, ref: 'Strategy' }]
+  ownedStrategies: [{ type: String, ref: 'Strategy' }],
+  totalBalance: { type: Number, default: 0  }
 }, { timestamps: true });
 
 const UserSchema: Schema<IUser> = new Schema({
