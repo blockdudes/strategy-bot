@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { useContract } from "@/providers/thirdwebHook";
 import { useReactFlow } from "reactflow";
 import { useActiveAccount } from "thirdweb/react";
+import axios from "axios";
 
 const CreateStrategyDialog = ({
   open,
@@ -31,9 +32,36 @@ const CreateStrategyDialog = ({
 
   const { addStrategy } = useContract();
 
-  const handleConfirm = () => {
+  const getDetails = () => {
+    const nodes = reactflow.getNodes();
+    const ExecutionSteps = nodes.map((node) => ({
+      type: node.type,
+      params: node.data,
+    }));
+
+    return {
+      strategyOwner: activeAccount?.address || "No active account",
+      ExecutionSteps,
+      isPublic,
+      strategyName: name,
+      strategyDescription: description,
+    };
+  };
+
+  const handleConfirm = async () => {
     addStrategy(name, description, isPublic);
-    console.log("name", name, "description", description, "public", isPublic);
+    const details = getDetails();
+    console.log(JSON.stringify(details, null, 2));
+
+    const data = await axios.post("/api/strategy/save", {
+      strategyOwner: details.strategyOwner,
+      ExecutionSteps: details.ExecutionSteps,
+      isPublic: details.isPublic,
+      strategyName: details.strategyName,
+      strategyDescription: details.strategyDescription,
+    });
+    console.log("created", data.data);
+
     router.push("/");
     handleOpen();
   };
@@ -44,24 +72,6 @@ const CreateStrategyDialog = ({
 
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDescription(e.target.value);
-  };
-
-  const getDetails = () => {
-    const nodes = reactflow.getNodes();
-    const ExecutionSteps = nodes.map((node) => ({
-      type: node.type,
-      params: node.data
-    }));
-
-    const details = {
-      strategyOwner: activeAccount?.address || "No active account",
-      ExecutionSteps,
-      isPublic,
-      strategyName: name,
-      strategyDescription: description
-    };
-
-    console.log(JSON.stringify(details, null, 2));
   };
 
   return (
@@ -150,16 +160,6 @@ const CreateStrategyDialog = ({
           onPointerLeaveCapture={undefined}
         >
           Create
-        </Button>
-        <Button
-          variant="filled"
-          className="bg-gray-800 hover:bg-gray-700"
-          onClick={getDetails}
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          get details
         </Button>
       </DialogFooter>
     </Dialog>

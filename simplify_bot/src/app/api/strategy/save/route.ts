@@ -26,6 +26,7 @@ export async function POST(request: NextRequest) {
     try {
         const { strategyOwner, ExecutionSteps, isPublic = true, strategyName, strategyDescription } : {strategyOwner: string, ExecutionSteps: any[], isPublic?: boolean, strategyName: string, strategyDescription: string} = await request.json();
         
+        console.log(strategyOwner, ExecutionSteps, strategyName, strategyDescription)
         console.log(strategyOwner, ExecutionSteps.length > 0);
         if (!strategyOwner || ExecutionSteps.length === 0) {
             return NextResponse.json({ error: 'Invalid input' }, { status: 400 });

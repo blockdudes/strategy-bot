@@ -18,16 +18,26 @@ import {
 } from "thirdweb/react";
 import { client } from "@/lib/client";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 interface ContractContextState {
   contractInstance: ThirdwebContract | undefined;
   strategies: {
-    id: number;
-    name: string;
-    description: string;
+    strategyId: number;
+    strategyName: string;
+    strategyDescription: string;
     isPublic: boolean;
   }[];
   addStrategy: (name: string, description: string, isPublic: boolean) => void;
+  totalInvested: number;
+  setStrategies: (
+    strategies: {
+      strategyId: number;
+      strategyName: string;
+      strategyDescription: string;
+      isPublic: boolean;
+    }[]
+  ) => void;
 }
 
 const ContractContext = createContext<ContractContextState | undefined>(
@@ -42,18 +52,22 @@ export const ContractProvider: React.FC<{ children: React.ReactNode }> = ({
   >();
   const activeChain = useActiveWalletChain();
   const activeAccount = useActiveAccount();
+  const [strategies, setStrategies] = useState<
+    {
+      strategyId: number;
+      strategyName: string;
+      strategyDescription: string;
+      isPublic: boolean;
+    }[]
+  >([]);
+  const [totalInvested, setTotalInvested] = useState(0);
 
-
-    const [strategies, setStrategies] = useState
-    <{ id: number; name: string; description: string; isPublic: boolean }[]>([
-      { id: 1, name: "Yield Farming", description: "Maximizing returns by staking or lending crypto assets to gain rewards in the form of additional cryptocurrency.", isPublic: true },
-      { id: 2, name: "Liquidity Providing", description: "Providing liquidity to a decentralized exchange (DEX) pool to earn transaction fees based on the percentage of the pool owned.", isPublic: true },
-      { id: 4, name: "Arbitrage", description: "Exploiting price differences between exchanges to make profits from buying low on one exchange and selling high on another.", isPublic: true },
-      { id: 5, name: "Token Sniping", description: "Automated buying of new tokens as soon as they are listed on an exchange, often using bots to execute fast trades.", isPublic: false },
-      { id: 6, name: "NFT Flipping", description: "Buying Non-Fungible Tokens (NFTs) and selling them at a higher price for profit, leveraging market trends and hype.", isPublic: true }
-    ]);
-    
-    
+  axios
+    .get(`/api/strategy/owner/${activeAccount?.address}`)
+    .then((response) => {
+      console.log(response.data);
+      setTotalInvested(response.data.totalBalance);
+    });
 
   const addStrategy = (
     name: string,
@@ -63,9 +77,9 @@ export const ContractProvider: React.FC<{ children: React.ReactNode }> = ({
     // router.push(`/create/`);
     const newId = strategies.length + 1; // Adjust the ID to be based on current length
     const newStrategy = {
-      id: newId,
-      name: name,
-      description: description,
+      strategyId: newId,
+      strategyName: name,
+      strategyDescription: description,
       isPublic: isPublic,
     };
     setStrategies([...strategies, newStrategy]);
@@ -163,6 +177,8 @@ export const ContractProvider: React.FC<{ children: React.ReactNode }> = ({
         contractInstance,
         strategies,
         addStrategy,
+        totalInvested,
+        setStrategies,
       }}
     >
       {children}
