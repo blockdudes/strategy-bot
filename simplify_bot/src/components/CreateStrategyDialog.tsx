@@ -11,6 +11,8 @@ import {
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useContract } from "@/providers/thirdwebHook";
+import { useReactFlow } from "reactflow";
+import { useActiveAccount } from "thirdweb/react";
 
 const CreateStrategyDialog = ({
   open,
@@ -22,26 +24,45 @@ const CreateStrategyDialog = ({
   const [isPublic, setIsPublic] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const reactflow = useReactFlow();
 
-  
   const router = useRouter();
-  
-  const {addStrategy}= useContract();
+  const activeAccount = useActiveAccount();
+
+  const { addStrategy } = useContract();
 
   const handleConfirm = () => {
     addStrategy(name, description, isPublic);
-    console.log("name",name, "description", description, "public", isPublic);
+    console.log("name", name, "description", description, "public", isPublic);
     router.push("/");
     handleOpen();
   };
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
-  }
+  };
 
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDescription(e.target.value);
-  }
+  };
+
+  const getDetails = () => {
+    const nodes = reactflow.getNodes();
+    const ExecutionSteps = nodes.map((node) => ({
+      type: node.type,
+      params: node.data
+    }));
+
+    const details = {
+      strategyOwner: activeAccount?.address || "No active account",
+      ExecutionSteps,
+      isPublic,
+      strategyName: name,
+      strategyDescription: description
+    };
+
+    console.log(JSON.stringify(details, null, 2));
+  };
 
   return (
     <Dialog
@@ -129,6 +150,16 @@ const CreateStrategyDialog = ({
           onPointerLeaveCapture={undefined}
         >
           Create
+        </Button>
+        <Button
+          variant="filled"
+          className="bg-gray-800 hover:bg-gray-700"
+          onClick={getDetails}
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
+          get details
         </Button>
       </DialogFooter>
     </Dialog>

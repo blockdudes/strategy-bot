@@ -8,8 +8,6 @@ import { DepositDataType } from "./NodeTypes";
 
 const DepositNode = (props: NodeProps<DepositDataType>) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [nodeData, setNodeData] = useState(props.data);
-
   const reactflow = useReactFlow();
 
   const handleEditClick = (event: React.MouseEvent) => {
@@ -22,7 +20,14 @@ const DepositNode = (props: NodeProps<DepositDataType>) => {
   };
 
   const handleSave = (data: any) => {
-    setNodeData(data);
+    reactflow.setNodes((prev) =>
+      prev.map((node) => {
+        if (node.id === props.id) {
+          return { ...node, data: data };
+        }
+        return node;
+      })
+    );
     console.log("Saved data:", data);
   };
 
@@ -39,24 +44,18 @@ const DepositNode = (props: NodeProps<DepositDataType>) => {
             <span className="font-semibold">Deposit</span>
             <div className="text-white text-sm flex flex-col">
               <div>
-                {/* <span className="font-semibold">token</span>{" "}
-                <span className="text-blue-gray-900">
-                  {" "}
-                  {nodeData.inputToken}
-                </span> */}
                 <span className="font-semibold">token</span>{" "}
                 <span className="text-blue-gray-900">
                   {" "}
-                  {"USDT"}
+                  {props.data.inputToken}
                 </span>
               </div>
               <div>
-                {/* <span className="font-semibold">min Amount</span>{" "}
+                <span className="font-semibold">min Amount</span>{" "}
                 <span className="text-blue-gray-900">
                   {" "}
-                  {nodeData.minAmount}
-                </span> */}
-                <span className="font-semibold">min Amount</span> <span className="text-blue-gray-900"> 1</span>
+                  {props.data.minAmount}
+                </span>
               </div>
             </div>
           </div>

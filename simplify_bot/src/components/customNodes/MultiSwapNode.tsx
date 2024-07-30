@@ -7,7 +7,6 @@ import { MultiSwapDataType } from "./NodeTypes";
 
 const MultiSwapNode = (props: NodeProps<MultiSwapDataType>) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [nodeData, setNodeData] = useState(props.data);
 
   const reactflow = useReactFlow();
 
@@ -21,7 +20,14 @@ const MultiSwapNode = (props: NodeProps<MultiSwapDataType>) => {
   };
 
   const handleSave = (data: any) => {
-    setNodeData(data);
+    reactflow.setNodes((prev) =>
+      prev.map((node) => {
+        if (node.id === props.id) {
+          return { ...node, data: data };
+        }
+        return node;
+      })
+    );
     console.log("Saved data:", data);
   };
 
@@ -38,6 +44,11 @@ const MultiSwapNode = (props: NodeProps<MultiSwapDataType>) => {
             <span className="font-semibold">MultiSwap</span>
             <div className="text-white text-sm flex flex-col">
               <div>
+                <span className="font-semibold">token</span>{" "}
+                <span className="text-blue-gray-900">
+                  {" "}
+                  {truncate(props.data.inputToken)}
+                </span>
               </div>
             </div>
           </div>

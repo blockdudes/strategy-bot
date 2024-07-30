@@ -63,10 +63,6 @@ const ClientCreateStrategy = () => {
 
   return (
     <>
-      <CreateStrategyDialog
-        open={openCreateStrategyDialog}
-        handleOpen={handleOpenCreateStrategyDialog}
-      />
       <div className="w-[87vw] h-[80vh]">
         <ReactFlow
           className="w-full h-full"
@@ -77,6 +73,10 @@ const ClientCreateStrategy = () => {
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
         >
+          <CreateStrategyDialog
+            open={openCreateStrategyDialog}
+            handleOpen={handleOpenCreateStrategyDialog}
+          />
           <NodeSelector
             open={openNodeSelector}
             handleOpen={handleOpenNodeSelector}
